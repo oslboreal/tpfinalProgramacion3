@@ -8,7 +8,7 @@ class Empleado{
     public $clave;
     public $turno;
     public $perfil;
-    
+
     // DATOS : ALTA - BAJA - MODIFICAR - LISTAR
     
     public function Alta(){
@@ -64,6 +64,17 @@ class Empleado{
         $consulta =$objetoAccesoDato->RetornarConsulta("select * from empleado");
         $consulta->execute();			
         return $consulta->fetchAll(PDO::FETCH_CLASS,"Empleado");
+    }
+
+    public static function ChequearUsuario($correo, $clave)
+    {
+        $tempFlag = false;
+        $usuarios = Empleado::Listar();
+        foreach($usuarios as $temp)
+        {
+            echo $temp->email;
+        }
+        return true;
     }
 }
 ?>

@@ -39,8 +39,14 @@ $app->get('/', function(){
     echo 'Hello world';
 });
 
-$app->get('/ingreso', function()
+$app->post('/ingreso', function()
 {
+    $correo = $_POST['email'];
+    $clave = $_POST['clave'];
+    echo $correo . " " . $clave;
+    $ver = Empleado::ChequearUsuario($correo, $clave);
+  
+
     echo 'Aplicación de ingreso, aquí devuelvo un WEBTOKEN si los datos son válidos.';
     $clave = 'jmvserver';
     $payload = array(
