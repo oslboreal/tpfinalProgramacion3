@@ -48,22 +48,9 @@ class Vehiculo
     {
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta = $objetoAccesoDato->RetornarConsulta(
-"UPDATE vehiculo SET patente=:patente, color=:color, foto=:foto, marca=:marca, especial=:especial, estacionado=:estacionado WHERE id=:id");
-            // Declaro el valor de patente. 
-            $consulta->bindValue(':patente', $this->patente, PDO::PARAM_STR);
-            // Declaramos el ID.
-			$consulta->bindValue(':id', $this->id, PDO::PARAM_INT);
-            // Declaramos el Color. 
-            $consulta->bindValue(':color', $this->color, PDO::PARAM_STR);
-            // Declaramos la Foto. 
-            $consulta->bindValue(':foto', $this->foto, PDO::PARAM_STR);
-            // Declaramos la Marca. 
-            $consulta->bindValue(':marca', $this->marca, PDO::PARAM_STR);
-            // Declaramos si es Especial. 
-            $consulta->bindValue(':especial', $this->esEspecial, PDO::PARAM_BOOL);
-            // Declaramos si esta estacionado o No. 
-            $consulta->bindValue(':estacionado', $this->estacionado, PDO::PARAM_BOOL);
-            return $consulta->execute();
+"UPDATE vehiculo SET patente='$this->patente', color='$this->color', foto='$this->foto', marca='$this->marca', especial='$this->esEspecial', estacionado='$this->estacionado' WHERE id='$this->id'");
+            $consulta->execute();
+            return $consulta->rowCount();
     }
 
 // Método de clase Listar. (Trae todos los Vehiculos almacenados en la base de datos.)
@@ -75,6 +62,7 @@ class Vehiculo
         $consulta->execute();
         // Agarra el array de objetos obtenidos y los muestra como un array de Vehiculos.
         return $consulta->fetchAll(PDO::FETCH_CLASS, "Vehiculo");
+        
     }
 }
 
