@@ -43,20 +43,21 @@ $app->post('/ingreso', function()
 {
     $correo = $_POST['email'];
     $clave = $_POST['clave'];
-    echo $correo . " " . $clave;
     $ver = Empleado::ChequearUsuario($correo, $clave);
   
-
-    echo 'Aplicación de ingreso, aquí devuelvo un WEBTOKEN si los datos son válidos.';
-    $clave = 'jmvserver';
-    $payload = array(
-        "id" => 1,
-        "mail" => "correo@hot.com",
-        "tipo" => "admin"
-    );
-
-    $token = JWT::encode($payload, $clave);
-    echo $token;
+    if($ver)
+    {
+        echo '<h1>Usuario conectado correctamente</h1>';
+        $clave = 'jmvserver';
+        $payload = array(
+            "id" => 1,
+            "mail" => "correo@hot.com",
+            "tipo" => "admin"
+        );
+    
+        $token = JWT::encode($payload, $clave);
+        echo $token;
+    }
 });
 
 // correr la app

@@ -68,13 +68,15 @@ class Empleado{
 
     public static function ChequearUsuario($correo, $clave)
     {
-        $tempFlag = false;
         $usuarios = Empleado::Listar();
         foreach($usuarios as $temp)
         {
-            echo $temp->email;
+            if($temp->email == $correo && $temp->clave)
+            {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }
 ?>
