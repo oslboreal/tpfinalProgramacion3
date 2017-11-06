@@ -1,0 +1,2 @@
+Vamos a necesitar una base de datos.
+Atenticación con un loader

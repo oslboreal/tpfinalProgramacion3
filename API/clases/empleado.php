@@ -8,6 +8,7 @@ class Empleado{
     public $clave;
     public $turno;
     public $perfil;
+    
     // DATOS : ALTA - BAJA - MODIFICAR - LISTAR
     
     public function Alta(){
