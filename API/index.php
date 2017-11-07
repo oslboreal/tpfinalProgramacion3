@@ -41,21 +41,16 @@ $app->get('/', function(){
 
 $app->post('/ingreso', function()
 {
+    // Datos necesarios para corroborar ingreso.
     $correo = $_POST['email'];
     $clave = $_POST['clave'];
     $ver = Empleado::ChequearUsuario($correo, $clave);
   
-    if($ver)
+    // En caso de que la validación haya retornado "DATOS" para poner en nuestro Payload.
+    // Procedemos a brindarle su JWT a nuestro CLIENTE
+    if(!empty($ver))
     {
-        echo '<h1>Usuario conectado correctamente</h1>';
-        $clave = 'jmvserver';
-        $payload = array(
-            "id" => 1,
-            "mail" => "correo@hot.com",
-            "tipo" => "admin"
-        );
-    
-        $token = JWT::encode($payload, $clave);
+        $token = GestorToken::NuevoToken($ver);
         echo $token;
     }
 });

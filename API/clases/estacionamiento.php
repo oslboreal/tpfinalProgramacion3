@@ -6,10 +6,9 @@ class Estacionamiento{
    public $_idCochera;
    public $_fechaEntrada;
    public $_capacidad;
-   // campos null
    public $_idEmpleadoSalida;
    public $_fechaSalida;
-   //constructor
+
    public function Estacionamiento($idEmpleadoEntrada, $idCochera, $fechaEntrada, $capacidad, $id = null)
    {
         $this->setIdEmpleadoEntrada($idEmpleadoEntrada);
@@ -33,7 +32,7 @@ class Estacionamiento{
 
     public function modificar()
     {
-
+        
     }
 
     public function listar()

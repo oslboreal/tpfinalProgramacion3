@@ -1,5 +1,6 @@
 <?php
 require_once 'AccesoDatos.php';
+require_once 'SistemaJWT.php';
 class Empleado{
     public $id;
     public $nombre;
@@ -8,6 +9,12 @@ class Empleado{
     public $clave;
     public $turno;
     public $perfil;
+    public $estado;
+
+    // FALTA:
+    // Agregar a las consultas la propiedad $estado
+    // Mejorar los datos almacenados en el JWT. (Por ahora solo puse CLAVE y CORREO (SACAR CLAVE OBVIO))
+    //
 
     // DATOS : ALTA - BAJA - MODIFICAR - LISTAR
     
@@ -73,10 +80,13 @@ class Empleado{
         {
             if($temp->email == $correo && $temp->clave)
             {
-                return true;
+                $datos = array(
+                    "correo" => $correo,
+                    "clave" => $clave
+                );
+                return $datos;
             }
         }
-        return false;
     }
 }
 ?>
