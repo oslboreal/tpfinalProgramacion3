@@ -6,3 +6,11 @@
 // DAR ALTA INJGRESAR AL SISTEMA, GESTIONAR, VENTA, LISTAR, FILTRAR. 
 // API REST --> GRUPOS, MIDDLEWARE
 // LOS METODOS VAN A TENER UN LINEAMIENTO, PERO SON GENERICOS. 
+
+
+////////////////////////////////////////////
+LOGIN
+Loguearse es una funcion
+El validar que estes logueado es un Middleware. 
+
+////////////////////////////////////////////
