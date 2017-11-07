@@ -39,11 +39,21 @@ $app->get('/', function(){
     echo 'Hello world';
 });
 
+// ALTA USUARIOS CON CAMPOS QUE SEAN NECESARIOS. 
+// REGISTRO, DOBLE PASSWORD. 
+// VALIDARLO, CREAR UN TOKEN
+// SI ES UN TIPO DE USUARIO U OTRO TRAER DISTINTOS TIPOS DE DATOS. 
+// VAMOS A TENER QUE USAR LOS MIDDLEWARES QUE SEAN NECESARIOS PARA LOS PRIVILEGIOS 
+// DAR ALTA INJGRESAR AL SISTEMA, GESTIONAR, VENTA, LISTAR, FILTRAR. 
+// API REST --> GRUPOS, MIDDLEWARE
+// LOS METODOS VAN A TENER UN LINEAMIENTO, PERO SON GENERICOS. 
+
 $app->post('/ingreso', function()
 {
     // Datos necesarios para corroborar ingreso.
     $correo = $_POST['email'];
     $clave = $_POST['clave'];
+    if($correo != "" && $clave != "")
     $ver = Empleado::ChequearUsuario($correo, $clave);
   
     // En caso de que la validación haya retornado "DATOS" para poner en nuestro Payload.

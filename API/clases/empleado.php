@@ -75,6 +75,7 @@ class Empleado{
 
     public static function ChequearUsuario($correo, $clave)
     {
+        // ESTO SE TIENE QUE REEMPLAZAR SI O SI POR UNA CONSULTA QUE CHEQUE CONTRA LA BASE.
         $usuarios = Empleado::Listar();
         foreach($usuarios as $temp)
         {
