@@ -1,16 +1,17 @@
 <?php
 
-include_once 'vehiculo.php';
+include_once 'empleado.php';
 // ($patente, $marca, $color, $esEspecial, $estacionado, $id = null)
-$a = new Vehiculo();
-$a->color = "VERDE";
-$a->esEspecial = false;
-$a->estacionado = false;
-$a->foto = "ADGARA";
-$a->id = "7";
-$a->marca = "FORD";
-$a->patente = "JJJ555";
 
-$a->modificar();
+$empleado = new Empleado();
+$empleado->email = "admin@admin";
+$empleado->clave = "admin";
+$empleado->perfil = "Administrador";
+$empleado->estado = true;
+$empleado->nombre = "Administrador";
+$empleado->sexo = "Masculino";
+$empleado->turno = "Mañana";
+
+$empleado->Alta();
 
 ?>

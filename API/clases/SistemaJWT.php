@@ -65,7 +65,6 @@ class GestorToken
         // Obtenemos datos de nuestro visitante.
         $infoVisitante = "";
         $infoVisitante = $infoVisitante.$_SERVER['HTTP_USER_AGENT'];
-        $infoVisitante = $infoVisitante.$_SERVER['REMOTE_ADDR'];
         // Generamos nuestro HASH md5 para corroborrar que el usuario sea el mismo.
         return md5($infoVisitante);
     }

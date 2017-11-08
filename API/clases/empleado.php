@@ -46,12 +46,12 @@ class Empleado{
         perfil=:perfil
         WHERE id=:id");
         $consulta->bindValue(':id',$this->_id,PDO::PARAM_INT);
-        $consulta->bindValue(':nombre',$this->_nombre,PDO::PARAM_STR);
-        $consulta->bindValue(':email',$this->_email,PDO::PARAM_STR);
-        $consulta->bindValue(':sexo',$this->_sexo,PDO::PARAM_STR);
-        $consulta->bindValue(':clave',$this->_clave,PDO::PARAM_STR);
-        $consulta->bindValue(':turno',$this->_turno,PDO::PARAM_STR);
-        $consulta->bindValue(':perfil',$this->_perfil,PDO::PARAM_STR);
+        $consulta->bindValue(':nombre',$this->nombre,PDO::PARAM_STR);
+        $consulta->bindValue(':email',$this->email,PDO::PARAM_STR);
+        $consulta->bindValue(':sexo',$this->sexo,PDO::PARAM_STR);
+        $consulta->bindValue(':clave',$this->clave,PDO::PARAM_STR);
+        $consulta->bindValue(':turno',$this->turno,PDO::PARAM_STR);
+        $consulta->bindValue(':perfil',$this->perfil,PDO::PARAM_STR);
         return $consulta->execute();
     }
     public static function BajaPorId($id){
