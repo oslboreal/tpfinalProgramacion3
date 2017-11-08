@@ -20,7 +20,8 @@ class Empleado{
     
     public function Alta(){
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-        $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into empleado (nombre,email,sexo,clave,turno,perfil)values('$this->_nombre','$this->_email','$this->_sexo','$this->_clave','$this->_turno','$this->_perfil')");
+        $passw = md5($this->clave);
+        $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into empleado (nombre,email,sexo,clave,turno,perfil)values('$this->nombre','$this->email','$this->sexo', '$passw' ,'$this->turno','$this->perfil')");
         $consulta->execute();
         return $objetoAccesoDato->RetornarUltimoIdInsertado();
                    
@@ -75,19 +76,14 @@ class Empleado{
 
     public static function ChequearUsuario($correo, $clave)
     {
-        // ESTO SE TIENE QUE REEMPLAZAR SI O SI POR UNA CONSULTA QUE CHEQUE CONTRA LA BASE.
-        $usuarios = Empleado::Listar();
-        foreach($usuarios as $temp)
-        {
-            if($temp->email == $correo && $temp->clave)
-            {
-                $datos = array(
-                    "correo" => $correo,
-                    "clave" => $clave
-                );
-                return $datos;
-            }
-        }
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM empleado WHERE email=:correo AND clave=:pass");
+        $consulta->bindValue(':correo', $correo, PDO::PARAM_STR);
+        $consulta->bindValue(':pass', md5($clave), PDO::PARAM_STR);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_CLASS,"Empleado");
+        // Como resultado en caso de que los datos sean correctos devuelve el usuario en cuestión. 
+        // El cual será almacenado para crear el JWT.
     }
 }
 ?>

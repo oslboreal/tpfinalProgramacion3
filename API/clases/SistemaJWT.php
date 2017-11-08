@@ -13,16 +13,21 @@ class GestorToken
 
     public static function NuevoToken($datos)
     {
-        $now = time();
-        $pl = array(
-            'iat' => $now,
-            'exp' => $now + 30,
+        $ahora = time();
+        /*
+         parametros del payload
+         https://tools.ietf.org/html/rfc7519#section-4.1
+         + los que quieras ej="'app'=> "API REST CD 2017" 
+        */
+        $payload = array(
+        	'iat'=>$ahora,
+            'exp' => $ahora + (60*60),
+            'aud' => self::Aud(),
             'data' => $datos,
-            'vinfo' => self::visitorInfo()
+            'app'=> "API REST CD 2017"
         );
-        // Retorno mi JWT. 
-        $jwt = JWT::encode($pl, self::$clave);
-        return $jwt;
+     
+        return JWT::encode($payload, self::$clave);
     }
 
     public static function ChequearToken($jwt)
@@ -33,40 +38,43 @@ class GestorToken
         }
         try
         {
-            $decode = JWT::decode($jwt, self::$clave);
+          self::ObtenerPayload($jwt);
         } catch(ExpiredException $e)
         {
             throw new Exception("Error Processing Request", 1);
         }
-        // En caso de no haber caído en ninguna Exception podemos proceder a obtener el Payload.
-        if($decode->aud !== self::visitorInfo())
-        {
-            throw new Exception("Se detecto un cambio en la informacion del visitante.");
-        }
+        // Si llega a esta instancia es por que no cayó en ninguna exception, por lo tanto el TOKEN es válido.
         return true;
     }
 
     public static function ObtenerPayload($jwt)
     {
-        if(self::ChequearToken($jwt))
-        {
-            $payload = JWT::decode($jwt, self::$clave);
+            $payload = JWT::decode($jwt, self::$clave, array('HS256'));
             return $payload;
-        }
     }
 
     public static function ObtenerDatos($jwt)
     {
         return self::ObtenerPayload($jwt)->data;
-    }
+    }   
 
-    public static function visitorInfo()
+
+    private static function Aud()
     {
-        // Obtenemos datos de nuestro visitante.
-        $infoVisitante = "";
-        $infoVisitante = $infoVisitante.$_SERVER['HTTP_USER_AGENT'];
-        // Generamos nuestro HASH md5 para corroborrar que el usuario sea el mismo.
-        return md5($infoVisitante);
+        $aud = '';
+        
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $aud = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $aud = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $aud = $_SERVER['REMOTE_ADDR'];
+        }
+        
+        $aud .= @$_SERVER['HTTP_USER_AGENT'];
+        $aud .= gethostname();
+        
+        return sha1($aud);
     }
 }
 
