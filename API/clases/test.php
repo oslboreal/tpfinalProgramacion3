@@ -1,5 +1,7 @@
 <?php
 require_once '../../vendor/autoload.php';
+require_once 'estacionamiento.php';
+require_once 'estacionamientoApi.php';
 use \Firebase\JWT\JWT;
 include_once 'empleado.php';
 // ($patente, $marca, $color, $esEspecial, $estacionado, $id = null)
@@ -13,10 +15,17 @@ $empleado->nombre = "Carlos Gomez";
 $empleado->sexo = "Masculino";
 $empleado->turno = "Mañana";
 
-$resultado = Empleado::ChequearUsuario($empleado->email, $empleado->clave);
+/////////////////
 
-$token = GestorToken::NuevoToken($empleado);
+$estaci = new Estacionamiento();
+$estaci->id = 20;
+$fecha = getdate();
+$estaci->fechaEntrada = date("Y-m-d H:i:s");
+$estaci->idCochera = 3;
+$estaci->foto = "test.png";
+$estaci->idEmpleadoEntrada = 6;
+$arreglo = $estaci->modificar();
 
-var_dump(GestorToken::ChequearToken($token));
+EstacionamientoApi::MWCargar();
 
 ?>

@@ -52,7 +52,7 @@ class MWAutenticacion
 	}
 
 
-	
+
 	// Llamando este Middleware básicamente cualquiera puede realizar una solicitud post.
 	// Este método es prácticamente inútil por el hecho de que si sacamos todos los MW del grupo
 	// Técnicamente haría lo mismo, pero nos brinda determinada proligidad a la hora de ver el index de la API. 
