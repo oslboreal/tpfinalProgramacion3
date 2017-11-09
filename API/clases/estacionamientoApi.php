@@ -3,13 +3,15 @@
 require_once 'AccesoDatos.php';
 require_once 'estacionamiento.php';
 require_once 'imageJmv.php';
+
 class EstacionamientoApi extends Estacionamiento
 {
     // Método que se encarga de traer todos los CDS y retorna un estado 200.
-    public static function MWTraerTodos($request, $response, $args)
+    public function MWTraerTodos($request, $response, $args)
     {
         $todosLosRegistros = Estacionamiento::listar();
         $nuevaRespuesta = $response->withJson($todosLosRegistros, 200);
+        return $nuevaRespuesta;
     }
 
     // Método que trae un registro por ID.
@@ -35,10 +37,11 @@ class EstacionamientoApi extends Estacionamiento
          //   public $idEmpleadoEntrada;
          //   public $idCochera;
          //   public $fechaEntrada;
+         $respuesta = new stdclass();
          $direccion = "";
-         $arreglo = $request->getParseBody();
+         $arreglo = $request->getParsedBody();
          $idEmpleadoEntrada = $arreglo['idEmpleadoEntrada'];
-         $idCochera = $ararreglogs['idCochera'];
+         $idCochera = $ararreglo['idCochera'];
          $fechaEntrada = $arreglo['fechaEntrada'];
 
          $estacionamientoTemp = new Estacionamiento();
@@ -58,7 +61,15 @@ class EstacionamientoApi extends Estacionamiento
          }
          
          $estacionamientoTemp->foto = $direccion;
-         $estacionamientoTemp->alta();
+         if($estacionamientoTemp->alta() != 0)
+         {
+         $respuesta->mensaje = "El registro se cargo correctamente";
+         return $response->withJson($respuesta, 200);
+         }else
+         {
+             $respuesta->error = "No se cargo correctamente el registro";
+             return $response->withJson($respuesta, 200);
+         }
     }
 
     public static function MWBorrar($request, $response, $args)
