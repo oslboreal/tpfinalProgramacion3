@@ -1,9 +1,9 @@
 <?php
-require_once 'clases/vehiculo.php';
-require_once 'clases/empleado.php';
-require_once 'clases/estacionamientoApi.php';
-require_once 'clases/estacionamiento.php';
-require_once 'clases/AccesoDatos.php';
+require_once 'clases/Entidades/vehiculo.php';
+require_once 'clases/Entidades/empleado.php';
+require_once 'clases/Middleware/MWEstacionamiento.php';
+require_once 'clases/Entidades/estacionamiento.php';
+require_once 'clases/libsArchivos/AccesoDatos.php';
 require_once '../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -38,8 +38,6 @@ $app->post('/ingreso', function()
         }
     }
 });
-
-
 
 $app->run();
 ?>

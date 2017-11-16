@@ -1,8 +1,8 @@
 <?php
 
-require_once 'AccesoDatos.php';
-require_once 'estacionamiento.php';
-require_once 'imageJmv.php';
+require_once '../libsArchivos/AccesoDatos.php';
+require_once '../Entidades/estacionamiento.php';
+require_once '../libsArchivos/imageJmv.php';
 
 class EstacionamientoApi extends Estacionamiento
 {
